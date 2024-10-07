@@ -11,6 +11,13 @@
             @enderror
         </div>
         <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input type="text" class="form-control" name="price" />
+            @error('price')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="mb-3">
             <label class="form-label">Description</label>
             <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
             @error('description')

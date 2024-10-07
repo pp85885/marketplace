@@ -8,10 +8,13 @@
     <title>Marketpalce</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
+
+    {{-- custom css file --}}
+    <link rel="stylesheet" href="{{ asset('assets/main.css') }}">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('home') }}">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
