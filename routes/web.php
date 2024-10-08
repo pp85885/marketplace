@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{AuthController, HomeController, ProductController};
+use App\Http\Controllers\{AuthController, CartController, HomeController, OrderController, ProductController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,4 +39,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
         Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('delete');
     });
+
+    Route::prefix('cart')->as('cart.')->group(function () {
+        Route::post('add', [CartController::class, 'addToCart'])->name('add');
+        Route::post('update/{cartItemId}', [CartController::class, 'updateCart'])->name('update');
+        Route::post('remove/{cartItemId}', [CartController::class, 'removeFromCart'])->name('remove');
+        Route::get('/', [CartController::class, 'viewCart'])->name('index');
+    });
+
+    // order routes
+    Route::get('checkout', [OrderController::class, 'checkout'])->name('checkout');
+    Route::get('/orders-history', [OrderController::class, 'orderHistory'])->name('order.history');
+    Route::get('/order/{id}', [OrderController::class, 'show'])->name('order.details');
 });

@@ -12,6 +12,11 @@ class Product extends Model
     protected $fillable = ['title', 'user_id', 'price', 'description', 'image'];
 
 
+    public function cartItems()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
     function scopeExcludeMine($query)
     {
         if (auth()->check()) {

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <h2>Create Product</h2>
+    <div class="row">
+        <h2>Create Product</h2>
+    </div>
     <form method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
@@ -19,7 +21,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Description</label>
-            <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
+            <textarea name="description" class="form-control" cols="20" rows="5"></textarea>
             @error('description')
                 <span class="text-danger">{{ $message }}</span>
             @enderror

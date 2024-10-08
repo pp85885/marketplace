@@ -12,13 +12,43 @@
                 </div>
                 <div class="text-box">
                     <h2 class="item"> {{ $product->title }}</h2>
-                    <h3 class="price">$4.99</h3>
+                    <h3 class="price">${{ $product->price }}</h3>
                     <p class="description">{{ Str::limit($product->description, 100) }}</p>
-                    <button type="button" name="item-1-button" id="item-1-button">Add to Cart</button>
+                    <button type="button" class="cartBtn" data-product-id="{{ $product->id }}">Add to Cart</button>
                 </div>
             </div>
         @empty
             <h4 class="text-center text-danger">Product not found</h4>
         @endforelse
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('.cartBtn').on('click', function() {
+                var productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: "{{ route('cart.add') }}",
+                    type: "POST",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId,
+                        quantity: 1
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            toastr.success('product added to cart');
+                        } else {
+                            toastr.error('Something went wrong!');
+                        }
+                    },
+                    error: function(xhr) {
+                        toast.error('Failed to add product to cart.');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
