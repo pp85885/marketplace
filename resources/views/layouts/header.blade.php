@@ -36,11 +36,11 @@
                     {{-- for auth users --}}
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('products.index') }}">All Products</a>
+                            <a class="nav-link" href="{{ route('products.index') }}">My Products</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('products.create') }}">Create Product</a>
+                            <a class="nav-link" href="{{ route('cart.index') }}">My Cart</a>
                         </li>
                     @endauth
                 </ul>

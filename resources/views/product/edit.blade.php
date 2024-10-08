@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <h2>Edit Product</h2>
+    <div class="row">
+        <h2>Edit Product</h2>
+    </div>
+
     <form method="post" action="{{ route('products.update') }}" enctype="multipart/form-data">
         <input type="hidden" name="id" value="{{ encrypt($product->id) }}">
         @csrf
@@ -8,6 +11,13 @@
             <label class="form-label">title</label>
             <input type="text" class="form-control" value="{{ $product->title }}" name="title" />
             @error('title')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input type="text" class="form-control" value="{{ $product->price }}" name="price" />
+            @error('price')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>

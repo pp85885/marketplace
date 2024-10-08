@@ -1,7 +1,13 @@
 @extends('layouts.app')
 @section('content')
-    <h2>All Products</h2>
-
+    <div class="row">
+        <div class="col-md-10">
+            <h2>All Products</h2>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-success" href="{{route('products.create')}}">Add product</a>
+        </div>
+    </div>
     <table class="table">
         <thead>
             <tr>
