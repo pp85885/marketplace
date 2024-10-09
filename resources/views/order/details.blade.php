@@ -8,15 +8,13 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                <strong>Order ID:</strong> {{ $order->id }} <br>
+                <strong>Order ID:</strong> #{{ $order->id }} <br>
                 <strong>Order Date:</strong> {{ $order->created_at->format('d M Y') }} <br>
-                <strong>Status:</strong> {{ ucfirst($order->status) }} <br>
                 <strong>Total Amount:</strong> ${{ number_format($order->total_amount, 2) }}
             </div>
 
             <div class="card-body">
-                <h4>Items in this Order:</h4>
-
+                <h4>Items:</h4>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -43,7 +41,5 @@
                 </div>
             </div>
         </div>
-
-        <a href="{{ route('order.history') }}" class="btn btn-primary">Back to Orders</a>
     </div>
 @endsection

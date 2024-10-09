@@ -10,7 +10,13 @@ class OrderController extends Controller
 {
     public function orderHistory()
     {
-        $orders = Order::with('orderItems.product')->get();
+        $orderQuery = Order::query();
+
+        if(auth()->user()->role != 'admin'){
+            $orderQuery->where('user_id',auth()->id());
+        }
+        
+        $orders = $orderQuery->with('orderItems.product')->get();
         return view('order.index', compact('orders'));
     }
 

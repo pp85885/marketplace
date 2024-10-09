@@ -14,7 +14,11 @@
                     <h2 class="item"> {{ $product->title }}</h2>
                     <h3 class="price">${{ $product->price }}</h3>
                     <p class="description">{{ Str::limit($product->description, 100) }}</p>
-                    <button type="button" class="cartBtn" data-product-id="{{ $product->id }}">Add to Cart</button>
+                    
+                    {{-- authenticated users access add to cart btn --}}
+                    @auth
+                        <button type="button" class="cartBtn" data-product-id="{{ $product->id }}">Add to Cart</button>
+                    @endauth
                 </div>
             </div>
         @empty
@@ -45,7 +49,7 @@
                         }
                     },
                     error: function(xhr) {
-                        toast.error('Failed to add product to cart.');
+                        toastr.error('Failed to add product to cart.');
                     }
                 });
             });

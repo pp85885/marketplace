@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     function index()
     {
-        $products = Product::latest()->get();
+        $products = Product::excludeMine()->latest()->get();
         return view('index', compact('products'));
     }
 

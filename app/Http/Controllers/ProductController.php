@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\{StoreProductRequest, UpdateProductRequest};
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,14 @@ class ProductController extends Controller
 {
     function index()
     {
-        $products  =   Product::myProducts()->latest()->get();
+        $productQuery = Product::query();
+
+        if (auth()->user()->role != 'admin') {
+            $productQuery->myProducts();
+        }
+
+        $products = $productQuery->latest()->get();
+
         return view('product.index', compact('products'));
     }
 
@@ -18,16 +26,11 @@ class ProductController extends Controller
         return view('product.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:50',
-            'description' => 'required|string',
-            'price' => 'required|numeric|min:1',
-            'file' => 'required|image|mimes:png,jpg,gif,jpeg|max:2024',
-        ]);
+        $validated = $request->validated();
 
-        // assign the product to the user
+        // assign product to the user
         $validated['user_id'] = auth()->user()->id;
 
         $validated['image'] = '';
@@ -50,15 +53,9 @@ class ProductController extends Controller
         return view('product.edit', compact('product'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateProductRequest $request)
     {
-        $validated = $request->validate([
-            'id' => 'required|string',
-            'title' => 'required|string|max:50',
-            'price' => 'required|numeric|min:1',
-            'description' => 'required|string',
-            'file' => 'nullable|image|mimes:png,jpg,gif,jpeg|max:2024'
-        ]);
+        $validated = $request->validated();
 
         $product   =   Product::findOrFail(decrypt($request->id));
 

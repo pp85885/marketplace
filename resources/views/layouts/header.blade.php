@@ -36,12 +36,21 @@
                     {{-- for auth users --}}
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('products.index') }}">My Products</a>
+                            <a class="nav-link" href="{{ route('products.index') }}">Products</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('cart.index') }}">My Cart</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('order.history') }}">Orders</a>
+                        </li>
+
+                        @if (auth()->check() && auth()->user()->role === 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.index') }}">Users</a>
+                            </li>
+                        @endif
                     @endauth
                 </ul>
 
